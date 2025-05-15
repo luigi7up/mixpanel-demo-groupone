@@ -1,0 +1,69 @@
+// src/router/index.js
+import { createRouter, createWebHistory } from 'vue-router'
+
+import PublicLayout from '../layouts/PublicLayout.vue'
+import AppLayout from '../layouts/AppLayout.vue'
+
+// public views
+import Home from '../views/Home.vue'
+import Pricing from '../views/Pricing.vue'
+import Products from '../views/Products.vue'
+
+// private views
+import Dashboard from '../views/application/Dashboard.vue'
+import Gallery from '../views/application/Gallery.vue'
+import Widgets from '../views/application/Widgets.vue'
+import Bookings from '../views/application/Bookings.vue'
+import SeoTools from '../views/application/SeoTools.vue'
+
+// simple auth check from cookie (improve as needed)
+import Cookies from 'js-cookie'
+
+const routes = [
+  {
+    path: '/',
+    component: PublicLayout,
+    children: [
+      { path: '', name: 'home', component: Home },
+      { path: 'pricing', name: 'pricing', component: Pricing },
+      { path: 'products', name: 'products', component: Products },
+    ],
+  },
+  {
+    path: '/application',
+    component: AppLayout,
+    beforeEnter: (to, from, next) => {
+      const userEmail = Cookies.get('userEmail')
+      if (userEmail) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    children: [
+      { path: 'dashboard', name: 'dashboard', component: Dashboard },
+      { path: 'gallery', name: 'gallery', component: Gallery },
+      { path: 'widgets', name: 'widgets', component: Widgets },
+      { path: 'bookings', name: 'bookings', component: Bookings },
+      { path: 'seo_tools', name: 'seoTools', component: SeoTools },
+    ],
+  },
+  // fallback redirect
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/',
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
+
+// optional: track page views in Mixpanel
+import mixpanel from '../mixpanel'
+router.afterEach((to) => {
+  mixpanel.track('Page View', { page: to.fullPath })
+})
+
+export default router
