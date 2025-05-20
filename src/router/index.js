@@ -18,6 +18,7 @@ import SeoTools from '../views/application/SeoTools.vue'
 
 // simple auth check from cookie (improve as needed)
 import Cookies from 'js-cookie'
+import mp from '../mixpanel';
 
 const routes = [
   {
@@ -60,10 +61,11 @@ const router = createRouter({
   routes,
 })
 
-// optional: track page views in Mixpanel
-import mixpanel from '../mixpanel'
+
+
 router.afterEach((to) => {
-  mixpanel.track('Page View', { page: to.fullPath })
+  mp.track('Page Viewed', { page: to.fullPath })
+  
 })
 
 export default router

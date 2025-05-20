@@ -79,13 +79,17 @@
 <script setup>
   import { ref, onMounted } from 'vue'
   import Cookies from 'js-cookie'
-  import mixpanel from '../mixpanel'
+  
+  import mp from '@/mixpanel';
   import bootstrap from 'bootstrap/dist/js/bootstrap.bundle'
+  import { useRouter } from 'vue-router'
 
   const loginEmail = ref('')
   const loginPassword = ref('')
   const signupEmail = ref('')
   const signupPassword = ref('')
+
+  const router = useRouter()
 
   let loginModalInstance = null
   let signupModalInstance = null
@@ -109,11 +113,11 @@
   const identifyAndRedirect = (email) => {
     const userId = email.split('@')[0]
     Cookies.set('userEmail', email, { expires: 7 }) // 7 days cookie
-    mixpanel.identify(userId)
-    mixpanel.track('User Signed Up')
+    mp.identify(userId)
+    mp.track('User Signed Up')
     hideLogin()
     hideSignup()
-    window.location.href = '/application/dashboard'
+    router.push('/application/dashboard');
   }
 
   const handleLogin = () => {

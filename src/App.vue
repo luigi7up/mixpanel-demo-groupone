@@ -1,21 +1,32 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-
-</script>
-
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-    
-
-   
-    </div>
-  </header> -->
-
-  <RouterView />
+  <div>
+    <!-- Your app content -->
+    <router-view></router-view> <!-- If using Vue Router -->
+    <Toasts />
+  </div>
 </template>
+
+
+<script setup>
+import { RouterView } from 'vue-router'
+import { ref, onMounted } from 'vue'
+
+
+import { toasts } from './composables/useToast.js'
+
+
+import Toasts from '@/components/Toasts.vue' // Adjust path as needed
+
+const toastsRef = ref(null)
+const toastsReady = ref(false)
+
+onMounted(() => {
+  if (toastsRef.value) {
+    setToastsRef(toastsRef.value)
+    toastsReady.value = true
+  }
+})
+</script>
 
 <style scoped>
 header {

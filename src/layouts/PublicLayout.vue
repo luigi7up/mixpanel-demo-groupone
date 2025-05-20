@@ -7,10 +7,17 @@
           <router-link to="/pricing" class="nav-link">Pricing</router-link>
           <router-link to="/products" class="nav-link">Products</router-link>
         </div>
+        
         <div class="nav-right">
-          <!-- <button class="btn btn-outline-primary" @click="authModals.showLogin()">Login</button> -->
-          <button class="btn btn-primary" @click="authModals.showSignup()">Sign up</button>
+          <template v-if="isLoggedIn">
+            <button class="btn btn-primary" @click="goToApp()">Enter the app</button>
+          </template>
+          <template v-else>
+            <button class="btn btn-outline-primary" @click="authModals.showLogin()">Login</button>
+            <button class="btn btn-primary" @click="authModals.showSignup()">Sign up</button>
+          </template>
         </div>
+
       </nav>
     </header>
 
@@ -23,10 +30,30 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import AuthModals from '../components/AuthModals.vue'
+  import { ref, onMounted } from 'vue'
+  import AuthModals from '../components/AuthModals.vue'
+  import Cookies from 'js-cookie'
+  import { useRouter } from 'vue-router'
 
-const authModals = ref(null)
+  const authModals = ref(null)
+  const isLoggedIn = ref(false)
+  const router = useRouter()
+
+  onMounted(() => {
+    const userEmail = Cookies.get('userEmail')
+    isLoggedIn.value = !!userEmail
+  })
+
+  function getAuthTokenFromCookies() {
+    const match = document.cookie.match(/auth_token=([^;]+)/)
+    return match ? match[1] : null
+  }
+
+  function goToApp() {
+    // example route
+    // or use router.push if using Vue Router
+    router.push('/application/dashboard');
+  }
 </script>
 
 <style scoped>
