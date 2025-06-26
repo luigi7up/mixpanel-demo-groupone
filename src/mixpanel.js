@@ -7,6 +7,9 @@ let isInitialized = false
 function initMixpanel() {
   if (isInitialized) return
   mixpanel.init('d0e303b17f7dcaca6360c9f976ddb6f6')
+  // Expose globally for HotJar to see it
+  window.mixpanel = mixpanel;
+  console.log('Mixpanel initialized')
   isInitialized = true
 }
 
