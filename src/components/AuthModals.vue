@@ -113,6 +113,14 @@
   const identifyAndRedirect = (email) => {
     const userId = email.split('@')[0]
     Cookies.set('userEmail', email, { expires: 7 }) // 7 days cookie
+    Cookies.set('userId', userId, { expires: 7 }) // 7 days cookie
+    
+    window.hj('identify', userId, {
+      email: email,
+      role: "myrole",
+      plan: "myplan"
+    });
+    
     mp.identify(userId)
     mp.track('User Signed Up')
     hideLogin()

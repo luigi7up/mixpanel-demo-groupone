@@ -77,16 +77,6 @@ router.afterEach((to) => {
   //mp.track('Page Viewed', { page: to.fullPath })
   mp.track_pageview({page: "PAGE TET VALUE"})
 
-  window.hj('identify', 123123, {
-    role: "myrole",
-    plan: "myplan",
-    email: "myemail"
-
-
-    // 'Signed up': '2019-06-20Z', // Signup date in ISO-8601 format.
-  });
-
-
 })
 
 export default router
