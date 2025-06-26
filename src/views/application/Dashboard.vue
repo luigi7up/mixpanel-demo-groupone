@@ -51,7 +51,7 @@ function triggerFeedback() {
   if (window.hj) {
     window.hj('trigger', 'trigger_dashboard_filterbar_survey')
     
-    console.log('Feedback triggered!')
+    console.log('HotJar triggered: trigger_dashboard_filterbar_survey')
   }
 }
 
