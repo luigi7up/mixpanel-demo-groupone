@@ -49,7 +49,9 @@ const selectedSegment = ref('all')
 
 function triggerFeedback() {
   if (window.hj) {
-    window.hj('trigger_dashboard_filterbar_survey')
+    window.hj('trigger', 'trigger_dashboard_filterbar_survey')
+    
+    console.log('Feedback triggered!')
   }
 }
 
