@@ -118,9 +118,12 @@
     window.hj('identify', userId, {
       email: email,
       role: "myrole",
-      plan: "myplan"
+      plan: "myplan",
+      ab_test: "myabtest_group",
+      ab_test_group: "myabtest_group_new",
+      ab_test_variant: "myabtest_variant_new"
     });
-    
+
     mp.identify(userId)
     mp.track('User Signed Up')
     hideLogin()
