@@ -76,6 +76,14 @@ const router = createRouter({
 router.afterEach((to) => {
   //mp.track('Page Viewed', { page: to.fullPath })
   mp.track_pageview({page: "PAGE TET VALUE"})
+
+  window.hj('tagRecording', [
+    `userEmail:myemail`,
+    `role:myrole`,
+    `plan:myplan`
+  ]);
+
+
 })
 
 export default router
