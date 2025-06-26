@@ -20,6 +20,16 @@ import SeoTools from '../views/application/SeoTools.vue'
 import Cookies from 'js-cookie'
 import mp from '../mixpanel';
 
+// Hotjar Tracking Code
+(function(h,o,t,j,a,r){
+    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+    h._hjSettings={hjid:6446586,hjsv:6};
+    a=o.getElementsByTagName('head')[0];
+    r=o.createElement('script');r.async=1;
+    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+    a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+
 const routes = [
   {
     path: '/',
@@ -64,8 +74,8 @@ const router = createRouter({
 
 
 router.afterEach((to) => {
-  mp.track('Page Viewed', { page: to.fullPath })
-  
+  //mp.track('Page Viewed', { page: to.fullPath })
+  mp.track_pageview({page: "PAGE TET VALUE"})
 })
 
 export default router

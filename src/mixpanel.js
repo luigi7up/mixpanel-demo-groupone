@@ -17,6 +17,14 @@ function track(eventName, properties) {
   console.log('Mixpanel event:', eventName, properties)
 }
 
+
+function track_pageview(page) {
+  initMixpanel()
+  mixpanel.track_pageview(page)
+  showToast(`Mixpanel pageview: ${page}`)
+  console.log('Mixpanel pageview:', page)
+}
+
 function identify(userId) {
   initMixpanel()
   mixpanel.identify(userId)
@@ -27,5 +35,6 @@ function identify(userId) {
 export default {
   ...mixpanel,
   track,
+  track_pageview,
   identify,
 }
