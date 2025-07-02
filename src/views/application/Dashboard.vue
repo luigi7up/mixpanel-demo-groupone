@@ -50,8 +50,19 @@ const selectedSegment = ref('all')
 function triggerFeedback() {
   if (window.hj) {
     window.hj('trigger', 'trigger_dashboard_filterbar_survey')
-    
     console.log('HotJar triggered: trigger_dashboard_filterbar_survey')
+  
+    
+  }
+
+  if(FeedbackSurvey) {
+    // Example initialization (customize as needed):
+    window.FeedbackSurvey.create({
+      title: 'Leave Feedback',
+      subtitle: 'How was your experience?',
+      trigger: '.feedback-btn', // or use openNow: true to open immediately
+    });
+
   }
 }
 
