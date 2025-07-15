@@ -35,9 +35,29 @@ function identify(userId) {
   console.log('Mixpanel identify:', userId)
 }
 
+function set_user_profile(userProfile) {
+  initMixpanel();
+  mixpanel.people.set({
+    ...userProfile
+  });
+  showToast(`Mixpanel people.set: ${JSON.stringify(userProfile)}`);
+  console.log('Mixpanel people.set:', userProfile);
+}
+
+function reset() {
+  initMixpanel();
+  mixpanel.reset();
+  showToast('Mixpanel reset');
+  console.log('Mixpanel reset');
+}
+
+
+
 export default {
   ...mixpanel,
   track,
   track_pageview,
   identify,
+  set_user_profile,
+  reset,
 }

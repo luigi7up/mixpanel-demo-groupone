@@ -114,17 +114,36 @@
     const userId = email.split('@')[0]
     Cookies.set('userEmail', email, { expires: 7 }) // 7 days cookie
     Cookies.set('userId', userId, { expires: 7 }) // 7 days cookie
-    
-    window.hj('identify', userId, {
+
+    const userProfile = {
+      userId: userId,
       email: email,
-      role: "myrole",
-      plan: "myplan",
+      plan: "Beginner",
+      role: "admin",
+      total_domains: 3,
+      domains: ["www.mydomain1.com", "www.mydomain2.com", "www.mydomain3.com"]
+    
+    }
+    
+    
+    window.hj('identify', userProfile.userId, {
+      email: userProfile.email,
+      role: userProfile.role,
+      plan: userProfile.plan,
       ab_test: "myabtest_group",
       ab_test_group: "myabtest_group_new",
       ab_test_variant: "myabtest_variant_new"
     });
 
     mp.identify(userId)
+
+    mp.set_user_profile({
+        $email: userProfile.email,
+        plan: userProfile.plan,
+        total_domains: userProfile.total_domains,
+        domains: userProfile.domains,
+        role: userProfile.role,
+      })
     mp.track('User Signed Up')
     hideLogin()
     hideSignup()

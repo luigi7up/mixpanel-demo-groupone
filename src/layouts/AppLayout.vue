@@ -40,12 +40,17 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import mp from '@/mixpanel';
+
 import Cookies from 'js-cookie'
+
 
 const router = useRouter()
 
 const handleLogout = () => {
   Cookies.remove('userEmail')
+  mp.reset()
   router.push('/')
+
 }
 </script>
