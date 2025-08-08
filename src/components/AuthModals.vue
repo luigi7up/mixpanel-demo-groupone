@@ -125,7 +125,21 @@
     
     }
     
-    
+    // Userpilot identify - using lowercase as per the SDK
+    if (typeof window.userpilot !== 'undefined') {
+      window.userpilot.identify('456987', {
+        name: 'John Doe',
+        email: email,
+        created_at: '2018-07-11',
+        company: { // (optional) in case of company user, we can add company properties
+          id: '123456', // (required) in case of company user, used to identify the company
+          name: 'Acme Labs',
+          industry: 'Technology',
+          plan: 'Free',
+        },
+      });
+    }
+
     window.hj('identify', userProfile.userId, {
       email: userProfile.email,
       role: userProfile.role,

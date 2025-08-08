@@ -30,6 +30,7 @@ import mp from '../mixpanel';
     a.appendChild(r);
 })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 
+
 const routes = [
   {
     path: '/',
@@ -75,6 +76,9 @@ const router = createRouter({
 
 router.afterEach((to) => {
   //mp.track('Page Viewed', { page: to.fullPath })
+  if (typeof window.userpilot !== 'undefined') {
+    window.userpilot.reload();
+  }
   mp.track_pageview({ page: to.name || to.fullPath })
 
 })
