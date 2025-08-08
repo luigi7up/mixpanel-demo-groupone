@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout-container">
     <header class="header">
       <nav class="nav-container">
         <div class="nav-left">
@@ -26,12 +26,15 @@
     <main class="main-container">
       <router-view />
     </main>
+    
+    <AppFooter />
   </div>
 </template>
 
 <script setup>
   import { ref, onMounted } from 'vue'
   import AuthModals from '../components/AuthModals.vue'
+  import AppFooter from '../components/AppFooter.vue'
   import Cookies from 'js-cookie'
   import { useRouter } from 'vue-router'
 
@@ -86,9 +89,16 @@
   gap: 12px;
 }
 
+.layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-container {
   max-width: 1024px;
   margin: 24px auto 0 auto;
   padding: 0 16px;
+  flex: 1;
 }
 </style>

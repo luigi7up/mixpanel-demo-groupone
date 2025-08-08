@@ -1,5 +1,6 @@
 <template>
-  <div class="d-flex">
+  <div class="app-layout">
+    <div class="d-flex">
     <nav class="bg-light sidebar p-3" style="width: 220px; min-height: 100vh;">
       <!-- Logo at the top of sidebar -->
       <div class="mb-4 text-center">
@@ -35,13 +36,16 @@
     <main class="flex-grow-1 p-4">
       <router-view />
     </main>
+    </div>
+    
+    <AppFooter />
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
 import mp from '@/mixpanel';
-
+import AppFooter from '../components/AppFooter.vue'
 import Cookies from 'js-cookie'
 
 
@@ -54,3 +58,15 @@ const handleLogout = () => {
 
 }
 </script>
+
+<style scoped>
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout .d-flex {
+  flex: 1;
+}
+</style>

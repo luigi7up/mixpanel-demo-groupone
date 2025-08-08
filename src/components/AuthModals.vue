@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, nextTick } from 'vue'
   import Cookies from 'js-cookie'
   
   import mp from '@/mixpanel';
@@ -95,19 +95,27 @@
   let signupModalInstance = null
 
   const showLogin = () => {
-    loginModalInstance.show()
+    if (loginModalInstance) {
+      loginModalInstance.show()
+    }
   }
 
   const hideLogin = () => {
-    loginModalInstance.hide()
+    if (loginModalInstance) {
+      loginModalInstance.hide()
+    }
   }
 
   const showSignup = () => {
-    signupModalInstance.show()
+    if (signupModalInstance) {
+      signupModalInstance.show()
+    }
   }
 
   const hideSignup = () => {
-    signupModalInstance.hide()
+    if (signupModalInstance) {
+      signupModalInstance.hide()
+    }
   }
 
   const identifyAndRedirect = (email) => {
@@ -174,12 +182,33 @@
   }
 
   onMounted(() => {
-    loginModalInstance = new bootstrap.Modal(
-      document.getElementById('loginModal')
-    )
-    signupModalInstance = new bootstrap.Modal(
-      document.getElementById('signupModal')
-    )
+    // Use nextTick to ensure DOM is fully rendered
+    nextTick(() => {
+      try {
+        // Check if Bootstrap is available
+        if (typeof bootstrap === 'undefined') {
+          console.error('Bootstrap is not loaded')
+          return
+        }
+        
+        const loginModalElement = document.getElementById('loginModal')
+        const signupModalElement = document.getElementById('signupModal')
+        
+        if (loginModalElement) {
+          loginModalInstance = new bootstrap.Modal(loginModalElement)
+        } else {
+          console.warn('Login modal element not found')
+        }
+        
+        if (signupModalElement) {
+          signupModalInstance = new bootstrap.Modal(signupModalElement)
+        } else {
+          console.warn('Signup modal element not found')
+        }
+      } catch (error) {
+        console.error('Error initializing modals:', error)
+      }
+    })
   })
 
   // Expose modal show functions to parent via events

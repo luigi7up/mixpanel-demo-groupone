@@ -58,6 +58,7 @@ function triggerFeedback() {
   if(FeedbackSurvey) {
     // Example initialization (customize as needed):
     window.FeedbackSurvey.create({
+      userId: '123',
       title: 'Leave Feedback',
       subtitle: 'How was your experience?',
       trigger: '.feedback-btn', // or use openNow: true to open immediately
@@ -169,5 +170,102 @@ const widgets = [
   font-weight: 500;
   color: #333;
   text-align: center;
+}
+.fb-ov {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30, 41, 59, 0.45);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.fb-md {
+  background: #fff;
+  padding: 2.2rem 2rem 1.5rem 2rem;
+  border-radius: 16px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(30,41,59,0.18), 0 1.5px 6px rgba(30,41,59,0.08);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  position: relative;
+  animation: fb-fadein 0.3s;
+}
+@keyframes fb-fadein {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: none;}
+}
+.fb-md h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+.fb-md p {
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+.fb-str {
+  margin: 10px 0 18px 0;
+}
+.fb-s {
+  font-size: 2.1rem;
+  cursor: pointer;
+  color: #e5e7eb;
+  transition: color 0.18s;
+  margin: 0 2px;
+  user-select: none;
+}
+.fb-s.sel {
+  color: #fbbf24;
+  text-shadow: 0 2px 8px #fde68a55;
+}
+.fb-md textarea {
+  width: 100%;
+  min-height: 60px;
+  max-height: 120px;
+  margin: 0 0 1.1rem 0;
+  padding: 10px 12px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 7px;
+  font-size: 1rem;
+  color: #334155;
+  background: #f8fafc;
+  resize: vertical;
+  transition: border 0.18s;
+  outline: none;
+}
+.fb-md textarea:focus {
+  border-color: #38bdf8;
+  background: #fff;
+}
+.fb-sub {
+  background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.6rem;
+  cursor: pointer;
+  border-radius: 7px;
+  font-size: 1.08rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(56,189,248,0.08);
+  opacity: 0.7;
+  transition: opacity 0.18s, box-shadow 0.18s, background 0.18s;
+  margin-top: 0.2rem;
+  letter-spacing: 0.01em;
+}
+.fb-sub.enabled {
+  opacity: 1;
+  box-shadow: 0 4px 16px rgba(56,189,248,0.13);
+}
+.fb-sub:disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+.fb-md .fb-thankyou {
+  font-size: 1.15rem;
+  color: #22c55e;
+  margin-top: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 </style>
