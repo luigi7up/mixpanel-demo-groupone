@@ -26,6 +26,13 @@
           <router-link to="/application/seo_tools" class="nav-link">SEO Tools</router-link>
         </li>
 
+        <!-- Feedback link -->
+        <li class="nav-item mb-3">
+          <button class="btn btn-link nav-link text-muted p-0" @click="handleFeedbackClick">
+            <small>Leave feedback</small>
+          </button>
+        </li>
+
         <!-- Logout button -->
         <li class="nav-item">
           <button class="btn btn-outline-danger w-100" @click="handleLogout">Log out</button>
@@ -39,6 +46,7 @@
     </div>
     
     <AppFooter />
+    <FloatingFeedbackButton />
   </div>
 </template>
 
@@ -46,6 +54,7 @@
 import { useRouter } from 'vue-router'
 import mp from '@/mixpanel';
 import AppFooter from '../components/AppFooter.vue'
+import FloatingFeedbackButton from '../components/FloatingFeedbackButton.vue'
 import Cookies from 'js-cookie'
 
 
@@ -55,7 +64,24 @@ const handleLogout = () => {
   Cookies.remove('userEmail')
   mp.reset()
   router.push('/')
+}
 
+const handleFeedbackClick = () => {
+  console.log('Sidebar feedback clicked')
+  
+  // Trigger Userpilot custom event
+  if (typeof window.userpilot !== 'undefined') {
+    window.userpilot.track('click_on_feedback_sidebar', {
+      button_location: 'sidebar_feedback_link',
+      timestamp: new Date().toISOString()
+    })
+  }
+  
+  // You can customize this to open a feedback modal, form, or external link
+  // window.open('https://your-feedback-form.com', '_blank')
+  
+  // For now, just show an alert
+  console.log('Clicked on feedback button in the sidebar')
 }
 </script>
 
